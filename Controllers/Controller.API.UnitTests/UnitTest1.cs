@@ -1,4 +1,4 @@
-namespace Controller.API.UnitTests;
+namespace Controller.Api.UnitTests;
 
 public class UnitTest1
 {
