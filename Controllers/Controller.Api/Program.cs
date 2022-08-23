@@ -8,6 +8,7 @@ using Controller.Api.ServiceModel.Mappings;
 using Controller.Api.ServiceModel.Mappings.Interfaces;
 using HashidsNet;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,10 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer()
     .AddSwaggerGen()
     .AddMediatR(typeof(GetUsersQuery));
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
 
 builder.Services.AddSingleton<IRandomProvider, RandomProvider>();
 builder.Services.AddSingleton<IUserRetriever, UserRetriever>();

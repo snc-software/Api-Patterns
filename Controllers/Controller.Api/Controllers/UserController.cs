@@ -52,4 +52,23 @@ public class UserController : ControllerBase
 
         return Ok(patch);
     }
-}
+
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] User model)
+    {
+        var newModel = new User(_hashids.Encode(99), model.FirstName, model.Surname);
+        return CreatedAtAction(nameof(GetById), new { id = newModel.Id }, newModel);
+    }
+    
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(string id, [FromBody] User model)
+    {
+        return Ok(model);
+    }
+    
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(string id)
+    {
+        return NoContent();
+    }
+} 
