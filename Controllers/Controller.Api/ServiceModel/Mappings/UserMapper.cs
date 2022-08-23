@@ -16,6 +16,16 @@ public class UserMapper : IUserMapper
 
     public User Map(UserModel model)
     {
-        return new User(_hashids.Encode(model.Id), $"{model.FirstName} {model.Surname}");
+        return new User(_hashids.Encode(model.Id), model.FirstName, model.Surname);
+    }
+
+    public UserModel Map(User model)
+    {
+        return new UserModel
+        {
+            Id = _hashids.DecodeSingle(model.Id),
+            FirstName = model.FirstName,
+            Surname = model.Surname
+        };
     }
 }

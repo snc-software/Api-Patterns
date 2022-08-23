@@ -2,6 +2,7 @@ using ApiPatterns.Core.Services.Data.Users.Interfaces;
 using Controller.Api.ServiceInterface.Contracts;
 using Controller.Api.ServiceInterface.Queries.Users;
 using Controller.Api.ServiceModel.Mappings.Interfaces;
+using HashidsNet;
 using MediatR;
 
 namespace Controller.Api.ServiceModel.Queries.Users;
@@ -11,7 +12,7 @@ public class GetUsersQueryHandler : RequestHandler<GetUsersQuery, List<User>>
     readonly IUserRetriever _retriever;
     readonly IUserMapper _mapper;
 
-    public GetUsersQueryHandler(IUserRetriever retriever, IUserMapper mapper)
+    public GetUsersQueryHandler(IUserRetriever retriever, IUserMapper mapper, IHashids hashids)
     {
         _retriever = retriever;
         _mapper = mapper;

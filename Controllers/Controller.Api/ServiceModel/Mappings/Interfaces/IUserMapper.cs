@@ -6,4 +6,5 @@ namespace Controller.Api.ServiceModel.Mappings.Interfaces;
 public interface IUserMapper
 {
     User Map(UserModel model);
+    UserModel Map(User model);
 }

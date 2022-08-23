@@ -1,9 +1,10 @@
+using ApiPatterns.Core.Domain.Attributes;
+
 namespace ApiPatterns.Core.Domain;
 
 public class UserModel : ModelBase
 {
-    public int Id { get; set; }
-    public Guid UniqueId { get; set; }
     public string FirstName { get; set; }
+    [IgnoredForUpdates]
     public string Surname { get; set; }
 }

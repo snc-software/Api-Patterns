@@ -1,6 +1,9 @@
+using Controller.Api.ServiceInterface.Commands.Users;
+using Controller.Api.ServiceInterface.Contracts;
 using Controller.Api.ServiceInterface.Queries.Users;
 using HashidsNet;
 using MediatR;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Controller.Api.Controllers;
@@ -37,5 +40,16 @@ public class UserController : ControllerBase
         var user = await _mediator.Send(new GetUserQuery(rawId[0]));
 
         return Ok(user);
+    }
+
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> Patch(string id, [FromBody]JsonPatchDocument<User> model)
+    {
+        var rawId = _hashids.Decode(id);
+        if (rawId.Length == 0) return NotFound();
+
+        var patch = await _mediator.Send(new AmendUserCommand(rawId[0], model));
+
+        return Ok(patch);
     }
 }
